@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+About Us
+{% endblock page_title %}
+
+{% block page_css %}
+<style>
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+</style>
+{% endblock page_css %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+
+        <!-- Hero Section -->
+        <section class="text-center py-4 py-lg-5">
+            <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill mb-3">
+                About BlogPost
+            </span>
+            <h1 class="display-5 fw-bold mb-3">Empowering voices, sharing stories</h1>
+            <p class="lead text-body-secondary mx-auto" style="max-width: 700px;">
+                BlogPost is a modern publishing platform designed for writers, thinkers, and creators to share deep
+                insights, tutorials, and stories with a global audience.
+            </p>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="row g-3 py-4 text-center">
+            <div class="col-md-4">
+                <div class="card bg-body-tertiary border-0 h-100 py-3">
+                    <div class="card-body">
+                        <h2 class="fw-bold text-primary mb-1">10k+</h2>
+                        <p class="text-body-secondary mb-0">Active Readers</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-body-tertiary border-0 h-100 py-3">
+                    <div class="card-body">
+                        <h2 class="fw-bold text-primary mb-1">500+</h2>
+                        <p class="text-body-secondary mb-0">Published Articles</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-body-tertiary border-0 h-100 py-3">
+                    <div class="card-body">
+                        <h2 class="fw-bold text-primary mb-1">99.9%</h2>
+                        <p class="text-body-secondary mb-0">Uptime & Speed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Values Section -->
+        <section class="py-5">
+            <h2 class="fw-bold text-center mb-5">Why We Built BlogPost</h2>
+            <div class="row g-4">
+
+                <!-- Feature 1 -->
+                <div class="col-md-6">
+                    <div class="card bg-body-tertiary border-0 h-100 p-3">
+                        <div class="card-body">
+                            <div class="icon-box bg-primary text-white mb-3">
+                                ⚡
+                            </div>
+                            <h4 class="fw-semibold">Fast & Distraction-Free</h4>
+                            <p class="text-body-secondary mb-0">
+                                We prioritize clean reader experience and lightning-fast page speeds so content always
+                                takes center stage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="col-md-6">
+                    <div class="card bg-body-tertiary border-0 h-100 p-3">
+                        <div class="card-body">
+                            <div class="icon-box bg-success text-white mb-3">
+                                🛡️
+                            </div>
+                            <h4 class="fw-semibold">Open & Transparent</h4>
+                            <p class="text-body-secondary mb-0">
+                                Built on open-source technologies like Django and Bootstrap, ensuring high security and
+                                community-driven design.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="card bg-primary-subtle border-0 rounded-4 p-4 p-lg-5 text-center my-4">
+            <div class="card-body">
+                <h3 class="fw-bold text-body-emphasis mb-3">Ready to share your story?</h3>
+                <p class="text-body-secondary mx-auto mb-4" style="max-width: 500px;">
+                    Join our growing community of writers today and get your posts read by thousands.
+                </p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'users:register' %}" class="btn btn-primary px-4 fw-medium">Get Started</a>
+                    <a href="{% url 'blogs:home' %}" class="btn btn-outline-secondary px-4 fw-medium">Browse Posts</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+{% endblock content %}
+
+{% block page_js %}
+{% endblock page_js %}

@@ -1,0 +1,119 @@
+{% load static %}
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5.3.3 CSS (Supports native data-bs-theme="dark") -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <title>{% block page_title %}{% endblock page_title %} - BlogPost</title>
+
+    {% block page_css %}{% endblock page_css %}
+</head>
+
+<body>
+
+    <header class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top py-2">
+        <div class="container">
+            <!-- Brand Logo & Name -->
+            <a href="{% url 'blogs:home' %}" class="navbar-brand d-flex align-items-center gap-2 me-4">
+                <!-- 1:1 SVG Logo Mark -->
+                <svg width="36" height="36" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="512" height="512" rx="112" fill="url(#bg-gradient)" />
+                    <g transform="translate(64, 64) scale(9.6)">
+                        <path
+                            d="M13 11H22C24.7614 11 27 13.2386 27 16C27 17.9614 25.8711 19.6585 24.2289 20.4735C26.4385 21.2822 28 23.4079 28 25.9C28 29.2137 25.3137 31.9 22 31.9H13V11Z"
+                            fill="white" fill-opacity="0.25" />
+                        <path d="M13 11H21.5C24.2614 11 26.5 13.2386 26.5 16C26.5 18.7614 24.2614 21 21.5 21H13V11Z"
+                            fill="white" />
+                        <path
+                            d="M13 20.5H22C25.0376 20.5 27.5 22.9624 27.5 26C27.5 29.0376 25.0376 31.5 22 31.5H13V20.5Z"
+                            fill="white" />
+                        <circle cx="28" cy="11" r="3" fill="#10B981" />
+                    </g>
+                    <defs>
+                        <linearGradient id="bg-gradient" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#4F46E5" />
+                            <stop offset="1" stop-color="#7C3AED" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="fw-bold fs-4 text-body mb-0">Blog<span class="text-primary">post</span></span>
+            </a>
+
+            <!-- Mobile Toggler Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Navigation Links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'blogs:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body-secondary" href="{% url 'blogs:about' %}">About</a>
+                    </li>
+                </ul>
+
+                <!-- Right Controls: Auth Buttons -->
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    {% if user.is_authenticated %}
+                    <!-- User Greeting / Profile Link -->
+                    <a href="#" class="text-decoration-none text-light d-flex align-items-center gap-2">
+                        <span class="badge bg-secondary rounded-circle p-2">
+                            <!-- Simple User Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            </svg>
+                        </span>
+                        <span class="fw-medium text-light opacity-90">{{ user.username|capfirst }}</span>
+                    </a>
+
+                    <!-- Logout Form -->
+                    <form method="POST" action="{% url 'users:logout' %}" class="d-inline ms-1">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Log Out</button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'users:login' %}" class="btn btn-sm btn-outline-light px-3 fw-medium">Login</a>
+                    <a href="{% url 'users:register' %}" class="btn btn-sm btn-warning px-3 fw-medium">Sign up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="container py-4">
+        <div class="row">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+
+    <!-- Bootstrap 5.3.3 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    {% block page_js %}
+    {% endblock page_js %}
+
+</body>
+
+</html>
