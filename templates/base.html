@@ -62,19 +62,28 @@
                         <a class="nav-link text-body-secondary" href="{% url 'blogs:about' %}">About</a>
                     </li>
                 </ul>
-
                 <!-- Right Controls: Auth Buttons -->
                 <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
                     {% if user.is_authenticated %}
                     <!-- User Greeting / Profile Link -->
-                    <a href="#" class="text-decoration-none text-light d-flex align-items-center gap-2">
-                        <span class="badge bg-secondary rounded-circle p-2">
-                            <!-- Simple User Icon -->
+                    <a href="{% url 'users:profile' %}"
+                        class="text-decoration-none text-light d-flex align-items-center gap-2">
+                        {% if user.profile and user.profile.img %}
+                        <!-- Uploaded User Avatar -->
+                        <img src="{{ user.profile.img.url }}" alt="{{ user.username }}"
+                            class="rounded-circle border border-secondary shadow-sm"
+                            style="width: 32px; height: 32px; object-fit: cover;">
+                        {% else %}
+                        <!-- Fallback Badge Icon -->
+                        <span
+                            class="badge bg-secondary rounded-circle p-2 d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                             </svg>
                         </span>
+                        {% endif %}
                         <span class="fw-medium text-light opacity-90">{{ user.username|capfirst }}</span>
                     </a>
 

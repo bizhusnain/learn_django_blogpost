@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}
+@{{ user.username|capfirst }} — Blogpost
+{% endblock page_title %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Main Layout Grid -->
+    <div class="row g-4 justify-content-center">
+
+        <!-- Left Column: Profile Card -->
+        <div class="col-12 col-lg-4">
+            <div class="card bg-dark text-light border-secondary shadow-lg rounded-4 overflow-hidden position-sticky"
+                style="top: 2rem;">
+
+                <!-- Banner Header -->
+                <div class="card-header border-0 bg-gradient p-4 text-center position-relative"
+                    style="background: linear-gradient(135deg, #2b3035 0%, #0d6efd 100%); min-height: 100px;">
+                </div>
+
+                <!-- Avatar Overlap -->
+                <div class="text-center position-relative" style="margin-top: -50px;">
+                    {% if user.profile and user.profile.img %}
+                    <img src="{{ user.profile.img.url }}" alt="{{ user.username }}"
+                        class="rounded-circle img-thumbnail border-4 border-dark shadow-lg"
+                        style="width: 110px; height: 110px; object-fit: cover;">
+                    {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=0D6EFD&color=fff&size=128"
+                        alt="{{ user.username }}" class="rounded-circle img-thumbnail border-4 border-dark shadow-lg"
+                        style="width: 110px; height: 110px; object-fit: cover;">
+                    {% endif %}
+                </div>
+
+                <!-- User Info -->
+                <div class="card-body p-4 text-center">
+                    <h2 class="h4 fw-bold mb-0 text-white">{{ user.first_name|capfirst }} {{ user.last_name }}</h2>
+                    <p class="text-secondary small mb-3">@{{ user.username }}</p>
+
+                    <p class="text-body-secondary small mb-4">
+                        {{ user.profile.bio }}
+                    </p>
+                    <!-- Actions -->
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-outline-light rounded-pill fw-semibold border-secondary">
+                            Edit Profile
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="card-footer bg-dark border-top border-secondary text-center py-3">
+                    <small class="text-secondary">Joined {{ user.date_joined|date:"F Y" }}</small>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Column: User Activity & Published Articles -->
+        <div class="col-12 col-lg-8">
+            <!-- Sample Post Card Feed -->
+            {% if posts %}
+            <div class="d-flex flex-column gap-3">
+                {% for post in posts %}
+                <!-- Post Item 1 -->
+                <div class="card bg-dark text-light border-secondary shadow-sm rounded-4 p-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <!-- some text here  -->
+                        </div>
+                        <h3 class="h5 card-title fw-bold text-white mb-2">
+                            <a href="#" class="text-white text-decoration-none hover-primary">
+                                {{ post.title|capfirst }}
+                        </h3>
+                        <p class="card-text text-secondary small">
+                            {{ post.content|capfirst }}
+                        </p>
+                        <div
+                            class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary">
+                            <span class="text-secondary small">Published {{ post.date_posted|date:"%F %d, %Y"}}</span>
+                            <div class="d-flex gap-3 text-secondary small">
+                                <!-- <span>❤️ 42</span>
+                                <span>💬 8</span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="card bg-dark text-light border-secondary shadow-sm rounded-4 p-5 text-center">
+                    <div class="card-body py-4">
+                        <div class="mb-3 text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                                class="bi bi-journal-x" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708z" />
+                                <path
+                                    d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3z" />
+                            </svg>
+                        </div>
+                        <h4 class="h5 fw-bold text-white mb-2">No posts published yet</h4>
+                        <p class="text-secondary small mb-4">
+                            When you create and publish articles, they will appear right here on your profile feed.
+                        </p>
+                        <a href="#" class="btn btn-primary rounded-pill px-4 fw-semibold">
+                            Create Your First Post
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
